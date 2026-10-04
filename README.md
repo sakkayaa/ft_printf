@@ -1,96 +1,91 @@
-# ft_printf
+# 🖨️ ft_printf
 
-> **C ile variadic fonksiyonlar ve formatlı çıktı**  
-> Standart `printf` fonksiyonunun temel format belirteçlerini yeniden uygulayan, yeniden kullanılabilir bir statik C kütüphanesi.
+> **A C reimplementation of `printf`, built as part of the 42 School curriculum.**
+>
+> This project explores variadic functions, format parsing, and writing formatted output while returning the number of characters printed.
 
-## Proje hakkında
+## 🎯 About the project
 
-`ft_printf`, değişken sayıda argüman alan (`variadic`) bir fonksiyonu C dilinde uygulama çalışmasıdır. Format metnini tarar, `%` belirteçlerini ilgili argümanlarla eşleştirir, çıktıyı standart çıktıya yazar ve yazdırılan karakter sayısını döndürür.
+`ft_printf` reads a format string, retrieves each matching argument with `stdarg.h`, prints the value, and returns the total output length. The implementation is packaged as the reusable static library `libftprintf.a`.
 
-Proje; `stdarg.h` ile argüman yönetimi, format ayrıştırma, farklı veri türlerini yazdırma, pointer gösterimi ve çıktı uzunluğunu hesaplama konularında pratik sunar. Derleme sonunda `libftprintf.a` statik kütüphanesi oluşturulur.
+## ✨ Supported conversions
 
-## Öne çıkanlar
-
-- **Variadic argüman yönetimi:** `va_list`, `va_start`, `va_arg` ve `va_end`
-- **Format ayrıştırma:** format string’i ile argümanları sıralı eşleştirme
-- **Karakter, string ve sayı çıktısı**
-- **Onaltılık ve pointer gösterimi**
-- **Yazdırılan karakter sayısını döndürme**
-- **Statik kütüphane:** Makefile ile `libftprintf.a` üretimi
-
-## Desteklenen format belirteçleri
-
-| Belirteç | Açıklama |
+| Conversion | Output |
 |---|---|
-| `%c` | Karakter |
-| `%s` | String; null pointer için `(null)` çıktısı |
-| `%p` | Pointer adresi (`0x` önekiyle) |
-| `%d`, `%i` | İşaretli tam sayı |
-| `%u` | İşaretsiz tam sayı |
-| `%x`, `%X` | Küçük veya büyük harfli onaltılık sayı |
-| `%%` | Yüzde işareti |
+| `%c` | A character |
+| `%s` | A string (`(null)` for a null pointer) |
+| `%p` | A pointer address in hexadecimal with a `0x` prefix |
+| `%d`, `%i` | A signed integer |
+| `%u` | An unsigned integer |
+| `%x`, `%X` | A lowercase or uppercase hexadecimal integer |
+| `%%` | A literal percent sign |
 
-## Gereksinimler
+## 🧠 Key concepts
 
-- C derleyicisi (`gcc` veya uyumlu bir derleyici)
+- 🎭 Variadic arguments with `va_list`, `va_start`, `va_arg`, and `va_end`
+- 🔎 Parsing a format string and dispatching to conversion functions
+- 🔢 Converting signed, unsigned, hexadecimal, and pointer values to text
+- 📏 Counting the characters written and returning the total
+- 📦 Building a reusable static library with Make
+
+## 🛠️ Requirements
+
+- A C compiler such as `cc` or `gcc`
 - `make`
 
-## Derleme
-
-Depoyu klonlayıp proje klasörüne geçin:
+## 🚀 Build
 
 ```bash
 git clone <repository-url>
 cd printf
-```
-
-Statik kütüphaneyi oluşturun:
-
-```bash
 make
 ```
 
-Derleme sonunda proje klasöründe `libftprintf.a` oluşur.
+The build creates `libftprintf.a` in the project directory.
 
-## Başka bir projede kullanma
-
-`ft_printf.h` dosyasını dahil edin ve programınızı kütüphaneyle birlikte derleyin:
+## 💡 Example
 
 ```c
 #include "ft_printf.h"
 
 int main(void)
 {
-    int printed = ft_printf("Merhaba, %s! Sayı: %d\n", "C", 42);
+    int printed;
+
+    printed = ft_printf("Hello, %s! Number: %d\n", "world", 42);
     return (printed < 0);
 }
 ```
+
+Compile your program with the library:
 
 ```bash
 cc -Wall -Wextra -Werror -I/path/to/printf \
   main.c /path/to/printf/libftprintf.a -o app
 ```
 
-`/path/to/printf` kısmını `ft_printf.h` ve `libftprintf.a` dosyalarının bulunduğu konumla değiştirin.
+Replace `/path/to/printf` with the directory containing `ft_printf.h` and `libftprintf.a`.
 
-## Makefile komutları
+## 🧹 Makefile commands
 
-| Komut | Açıklama |
+| Command | Description |
 |---|---|
-| `make` | `libftprintf.a` kütüphanesini oluşturur |
-| `make clean` | Nesne dosyalarını siler |
-| `make fclean` | Nesne dosyalarıyla birlikte kütüphaneyi siler |
-| `make re` | Temiz derleme yapar |
+| `make` | Build `libftprintf.a` |
+| `make clean` | Remove object files |
+| `make fclean` | Remove object files and the library |
+| `make re` | Clean and rebuild |
 
-## Öğrenme çıktıları
+## 🏅 42 evaluation
 
-Bu çalışma; C’de değişken sayıda argüman alan fonksiyonları kullanma, format metnini ayrıştırma, farklı veri türlerini çıktıya dönüştürme ve modüler bir statik kütüphane hazırlama becerilerini gösterir.
+The project received a **successful score of 104/100**. The evaluation summary is included below.
 
-## Geliştiren
+![42 ft_printf evaluation result: successful, 104 out of 100](assets/ft_printf-evaluation.png)
+
+## 👩‍💻 Author
 
 **Sedef Akkaya**  
-GitHub: [sakkayaa](https://github.com/sakkayaa) · LinkedIn: [Sedef Akkaya](https://www.linkedin.com/in/sedef-akkaya-0a5580228/)
+[GitHub](https://github.com/sakkayaa) · [LinkedIn](https://www.linkedin.com/in/sedef-akkaya-0a5580228/)
 
 ---
 
-*Formatı çöz, argümanı yazdır, çıktıyı kontrol et.*
+✨ *Parse the format. Print the value. Count every character.*
